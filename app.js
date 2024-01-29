@@ -1,20 +1,17 @@
 
 function setup() {
   createCanvas(500, 500);
-  background("#FFF");
-  noFill();
-  stroke(0);
-  strokeWeight(4)
-  rect(50, 50, 400, 400)
+  background("#000");
 }
 
 function draw() {
-  if ( frameCount >= 100) {
-    noLoop();
-  } else {
-    circle(random(100, 400), random(100, 400), 4);
+  noStroke();
+  fill("#FFF");
+
+  for (let i = 0; i < 5; i++) {
+    circle(50 + i*100, 250, 100);  
   }
-  
+
 }
 
 function keyPressed () {
