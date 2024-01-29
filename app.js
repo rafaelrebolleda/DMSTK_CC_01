@@ -5,12 +5,12 @@ function setup() {
 }
 
 function draw() {
-  fill(0);
-  stroke(255);
+  noFill(0);
+  stroke(255, 20); // with alpha
   strokeWeight(2);
 
   if (mouseIsPressed == true) {
-    circle(mouseX, mouseY, 50);
+    circle(mouseX, mouseY, random(100,200));
   }
   
 }
