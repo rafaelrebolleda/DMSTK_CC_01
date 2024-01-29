@@ -5,19 +5,29 @@ function setup() {
 }
 
 function draw() {
-  noFill(0);
-  stroke(255, 20); // with alpha
+  fill(0);
+  stroke(255, 100); // with alpha
   strokeWeight(2);
 
   if (mouseIsPressed == true) {
-    circle(mouseX, mouseY, random(100,200));
+    myPattern(mouseX, mouseY, 20, mouseY/10);
   }
   
 }
 
 function keyPressed () {
   console.log("Key pressed");
-  save("export.png");
+  //save("export.png");
   background(0);
+
+}
+
+function myPattern(x, y, d, amp) {
+  beginShape();
+    vertex(x-d/2 + random(-amp, amp), y-d/2 + random(-amp, amp)); // 0
+    vertex(x+d/2 + random(-amp, amp), y-d/2 + random(-amp, amp)); // 1
+    vertex(x+d/2 + random(-amp, amp), y+d/2 + random(-amp, amp)); // 2
+    vertex(x-d/2 + random(-amp, amp), y+d/2 + random(-amp, amp)); // 3
+  endShape(CLOSE);
 
 }
