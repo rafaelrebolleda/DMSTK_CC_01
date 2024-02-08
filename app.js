@@ -1,45 +1,54 @@
-let nb = 8;
+let nb = 30;
 let dim = 0;
 let margin = 20;
-
-let f = 0.25; // [0..1]
-let freq = 1;
-
 let x, y;
+
 
 function setup() {
   createCanvas(500, 500);
-  angleMode(DEGREES);
-
   dim = (width - 2*margin)/nb;
 
-  createLoop({duration: 2, gif:true});
+  noLoop();
 }
 
 function draw() {
-  background("#000");
-  // stroke("#FFF");
-  // noFill();
-  rectMode(CENTER);
+  background("#FFF");
 
   for (let j = 0; j < nb; j++) {
     for (let i = 0; i < nb; i++) {
 
-      x = margin + dim/2 + i*dim;
-      y = margin + dim/2+j*dim;
+      x = margin + i*dim;
+      y = margin + j*dim;
+ 
+      noFill();
+      stroke("#DDD");
 
-      // f = sin(frameCount * freq + 3*dist(width/2, height/2, x, y));
-      f = sin(degrees(animLoop.theta) * freq + 3*dist(width/2, height/2, x, y));
+      // GRID
+      // rect(x, y, dim, dim);
 
-      circle(x, y, f*dim);  
-      // rect(dim/2 + i*dim, dim/2+j*dim, 0.8*dim, 0.4*dim);  
+      // Create different patterns randomly
+      let rnd = int(random(0, 4));
+      stroke("#000");
+      strokeWeight(4);
+
+      if ( rnd == 0 ) {
+        line(x, y, x+dim, y+dim);
+      } else if ( rnd == 1) {
+        line(x, y+dim, x+dim, y);
+      } else if ( rnd == 2) {
+        line(x+dim/2, y, x+dim/2, y+dim);
+      } else if ( rnd == 3) {
+        line(x, y+dim/2, x+dim, y+dim/2);
+      }
+    
+
     }
   }
 }
-
+ 
 function keyPressed () {
   console.log("Key pressed");
   //save("export.png");
-  background(0);
+  redraw();
 
 }
