@@ -1,12 +1,13 @@
 
-let p = Array(100);
+let p = Array(50);
+let dMin = 100;
 
 
 function setup() {
   createCanvas(500, 500); 
 
   for (let i = 0; i < p.length; i++) {
-    p[i] = new Particle(250, 250);    
+    p[i] = new Particle(random(0, width), random(0, height));    
   }
 
 }
@@ -21,6 +22,14 @@ function draw() {
     p[i].draw();
   }
 
+  stroke("#FFF");
+  for (let i = 0; i < p.length; i++) {
+    for (let j = i + 1; j < p.length; j++) {
+      if (dist(p[i].x, p[i].y, p[j].x, p[j].y) < dMin) {
+        line(p[i].x, p[i].y, p[j].x, p[j].y)
+      }
+    }
+  }
 }
 
 class Particle {
