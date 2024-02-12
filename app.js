@@ -1,10 +1,17 @@
 
-let p = Array(50);
+let p = Array(500);
 let dMin = 100;
+let noiseScale = 0.005;
+let noiseAngle = 360;
+let noiseSpeed = 0.3;
+let ageMax = 400;
 
 
 function setup() {
   createCanvas(500, 500); 
+  background("#000 "); 
+
+  angleMode(DEGREES);
 
   for (let i = 0; i < p.length; i++) {
     p[i] = new Particle(random(0, width), random(0, height));    
@@ -14,22 +21,12 @@ function setup() {
 
 function draw() {
 
-  background("#000 "); 
-  noStroke();
-  fill("#FFF");
+  stroke(255, map(frameCount, 1, ageMax, 255, 0));
 
   for (let i = 0; i < p.length; i++) {
     p[i].draw();
   }
 
-  stroke("#FFF");
-  for (let i = 0; i < p.length; i++) {
-    for (let j = i + 1; j < p.length; j++) {
-      if (dist(p[i].x, p[i].y, p[j].x, p[j].y) < dMin) {
-        line(p[i].x, p[i].y, p[j].x, p[j].y)
-      }
-    }
-  }
 }
 
 class Particle {
@@ -42,6 +39,11 @@ class Particle {
   }
 
   draw() {
+
+    let n = noiseAngle*noise(noiseScale*this.x, noiseScale*this.y);
+    this.vx = noiseSpeed*cos(n);
+    this.vy = noiseSpeed*sin(n);
+
     this.x = this.x + this.vx;
     this.y = this.y + this.vy;
 
@@ -52,7 +54,8 @@ class Particle {
       this.vy = random(-2, 2);
       }
 
-    circle(this.x, this.y, 5);
+    // circle(this.x, this.y, 5);
+    point(this.x, this.y);
   }
 
 }
