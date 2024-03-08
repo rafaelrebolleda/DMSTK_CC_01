@@ -19,9 +19,21 @@ function setup() {
 function draw() {
 
   computePoints(map (mouseX, 0, width, 0.005, 0.1));
-  background("#FFF "); 
 
+  background("#000 "); 
 
+  noFill();
+  stroke("#FFF");
+  strokeWeight(2);
+
+  beginShape();
+  for (let i = 0; i < points.length; i++) {
+    vertex(points[i].x, points[i].y);
+  }
+  endShape();
+
+  fill("#000");
+  
   for (let i = 0; i < points.length; i++) {
     circle(points[i].x, points[i].y, 10);
   }
