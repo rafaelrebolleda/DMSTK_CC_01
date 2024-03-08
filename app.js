@@ -1,65 +1,29 @@
 
-let p = Array(500);
-let dMin = 100;
-let noiseScale = 0.005;
-let noiseAngle = 360;
-let noiseSpeed = 0.3;
-let ageMax = 400;
+let font;
+let points;
 
+function preload(){
+  font = loadFont("Roboto-Regular.ttf");
+}
 
 function setup() {
   createCanvas(500, 500); 
-  background("#000 "); 
+  background("#FFF "); 
 
-  angleMode(DEGREES);
-
-  for (let i = 0; i < p.length; i++) {
-    p[i] = new Particle(random(0, width), random(0, height));    
-  }
+  points = font.textToPoints("A", 0, 250, 300, {
+    sampleFactor: 0.2
+  });
+  
 
 }
 
 function draw() {
 
-  stroke(255, map(frameCount, 1, ageMax, 255, 0));
-
-  for (let i = 0; i < p.length; i++) {
-    p[i].draw();
+  for (let i = 0; i < points.length; i++) {
+    circle(points[i].x, points[i].y, 10);
   }
 
 }
-
-class Particle {
-
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.vx = random(-2, 2);
-    this.vy = random(-2, 2);
-  }
-
-  draw() {
-
-    let n = noiseAngle*noise(noiseScale*this.x, noiseScale*this.y);
-    this.vx = noiseSpeed*cos(n);
-    this.vy = noiseSpeed*sin(n);
-
-    this.x = this.x + this.vx;
-    this.y = this.y + this.vy;
-
-    if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
-      this.x = random(0, width);
-      this.y = random(0, height);
-      this.vx = random(-2, 2);
-      this.vy = random(-2, 2);
-      }
-
-    // circle(this.x, this.y, 5);
-    point(this.x, this.y);
-  }
-
-}
-
 
 
 function keyPressed () {
