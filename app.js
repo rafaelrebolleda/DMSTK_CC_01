@@ -67,6 +67,6 @@ function computePoints(factor) {
 
 function keyPressed () {
   console.log("Key pressed");
-  save("export.png");
+  // save("export.png");
 
 }
